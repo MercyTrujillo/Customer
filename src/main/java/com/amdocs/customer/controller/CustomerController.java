@@ -34,11 +34,17 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(message);
     }
 
+
+
+
+
 // read interfaces funcionales
     @RequestMapping(method = RequestMethod.GET,value = "/customer/{customerID}")
-    public ResponseEntity<Optional<Customer>> getCustomerById(@PathVariable Integer customerID){
+    public Optional<Customer> getCustomerById(@PathVariable Integer customerID){
 
         Optional<Customer> customer = customerService.getCustomerById(customerID);
+
+
 //        if(customerService.getCustomerById(customerID).isEmpty()){
 //            return ResponseEntity.status(HttpStatus.NOT_FOUND);
 //        }else {
@@ -46,15 +52,15 @@ public class CustomerController {
 //        }
 
 //        new ResponseEntity<>()
-        if(customer.isEmpty()){
-            return (ResponseEntity<Optional<Customer>>) ResponseEntity.notFound();
-        }
-        Customer Customer= new Customer();
-        return ResponseEntity.status(HttpStatus.OK).body(customer);
+//        if(customer.isEmpty()){
+//            return (ResponseEntity<Optional<Customer>>) ResponseEntity.notFound();
+//        }
+//        Customer Customer= new Customer();
+//        return ResponseEntity.status(HttpStatus.OK).body(customer);
 
 //        return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
 
- //return customerService.getCustomerById(customerID);
+            return customerService.getCustomerById(customerID);
 
 
 
