@@ -28,7 +28,6 @@ public class CustomerService {
     }
 
 
-
     public void addCustomer(CustomerRequest customerRequest) {
         Customer  customer = new Customer();
         customer.setName(customerRequest.getName());
