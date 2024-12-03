@@ -9,13 +9,16 @@ public class CustomerResponse {
 
     private String lastName;
 
-    private String address;
+    private String email;
 
-    public CustomerResponse(Integer customerID, String name, String lastName, String address) {
+//    private String address;
+
+    public CustomerResponse(Integer customerID, String name, String lastName, String email) {
         this.customerID = customerID;
         this.name = name;
         this.lastName = lastName;
-        this.address = address;
+//        this.address = address;
+        this.email = email;
     }
 
     public CustomerResponse(Customer customer) {
@@ -41,11 +44,20 @@ public class CustomerResponse {
         this.lastName = lastName;
     }
 
-    public String getAddress() {
-        return address;
+//    public String getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(String address) {
+//        this.address = address;
+//    }
+
+
+    public String getEmail() {
+        return email;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

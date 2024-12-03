@@ -6,12 +6,15 @@ public class CustomerRequest {
 
     private String lastName;
 
-    private String address;
+    private String email;
 
-    public CustomerRequest(String name, String lastName, String address) {
+//    private String address;
+
+    public CustomerRequest(String name, String lastName,String email) {
         this.name = name;
         this.lastName = lastName;
-        this.address = address;
+//        this.address = address;
+        this.email = email;
     }
 
     public String getName() {
@@ -30,11 +33,19 @@ public class CustomerRequest {
         this.lastName = lastName;
     }
 
-    public String getAddress() {
-        return address;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setEmail(String email) {
+        this.email = email;
     }
+
+    //    public String getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(String address) {
+//        this.address = address;
+//    }
 }

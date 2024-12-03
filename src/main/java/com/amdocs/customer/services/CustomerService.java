@@ -5,6 +5,7 @@ import com.amdocs.customer.entities.Customer;
 import com.amdocs.customer.exception.CustomerException;
 import com.amdocs.customer.repository.CustomerRepository;
 import com.amdocs.customer.request.CustomerRequest;
+import com.amdocs.customer.response.CustomerResponse;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,9 +33,10 @@ public class CustomerService {
         Customer  customer = new Customer();
         customer.setName(customerRequest.getName());
         customer.setLastName(customerRequest.getLastName());
-        customer.setAddress(customerRequest.getAddress());
-        customer.setCreationDate(LocalDate.now());
+        //customer.setAddress(customerRequest.getAddress());
 
+        customer.setEmail(customerRequest.getEmail());
+        customer.setCreationDate(LocalDate.now());
         customerRepository.save(customer);
 
     }
@@ -43,18 +45,35 @@ public class CustomerService {
 
 
 
-    public Optional<Customer> getCustomerById(Integer customerID) {
-        Optional<Customer> customer = customerRepository.findById(customerID);
-
-//        if (customer.isEmpty()) {
-//            throw new EntityNotFoundException("The customer ID no exist");
-//        }
-
+    public Optional<Customer> getCustomerById(String email) {
+        Optional<Customer> customer = customerRepository.findById(email);
+        System.out.println(email);
         return customer;
     }
 
 
+    public Customer updateCustomer(String email, CustomerRequest customerRequest) {
+            Optional<Customer> optionalCustomer= customerRepository.findById(email);
+            if(optionalCustomer.isPresent()){
+                Customer customer = optionalCustomer.get();
+                customer.setName(customerRequest.getName());
+                customer.setLastName(customerRequest.getLastName());
+                customer.setEmail(customerRequest.getEmail());
+//                customer.setAddress(customerRequest.getAddress());
+                customer.setCreationDate(LocalDate.now());
+                return
+                        customerRepository.save(customer);
+            }else {
+                optionalCustomer.orElseThrow(() -> new EntityNotFoundException("Customer not found"));
+            }
+            return null;
+
+    }
 
 
+    public void deleteCustomer(String email) {
+        System.out.println("Customer Deleted");
+        customerRepository.deleteById(email);
 
+    }
 }

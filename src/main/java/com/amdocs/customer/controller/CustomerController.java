@@ -2,6 +2,7 @@ package com.amdocs.customer.controller;
 
 import com.amdocs.customer.entities.Customer;
 import com.amdocs.customer.request.CustomerRequest;
+import com.amdocs.customer.response.CustomerResponse;
 import com.amdocs.customer.services.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class CustomerController {
 
@@ -30,41 +32,32 @@ public class CustomerController {
     public ResponseEntity<String> addCustomer(@RequestBody CustomerRequest customerRequest){
             customerService.addCustomer(customerRequest);
             String message = "Customer added!!";
-
         return ResponseEntity.status(HttpStatus.OK).body(message);
     }
 
 
 
-
-
-// read interfaces funcionales
-    @RequestMapping(method = RequestMethod.GET,value = "/customer/{customerID}")
-    public Optional<Customer> getCustomerById(@PathVariable Integer customerID){
-
-        Optional<Customer> customer = customerService.getCustomerById(customerID);
-
-
-//        if(customerService.getCustomerById(customerID).isEmpty()){
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND);
-//        }else {
-//            return ResponseEntity.getCustomerById(customerID);
-//        }
-
-//        new ResponseEntity<>()
-//        if(customer.isEmpty()){
-//            return (ResponseEntity<Optional<Customer>>) ResponseEntity.notFound();
-//        }
-//        Customer Customer= new Customer();
-//        return ResponseEntity.status(HttpStatus.OK).body(customer);
-
-//        return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
-
-            return customerService.getCustomerById(customerID);
-
-
-
+    @RequestMapping(method = RequestMethod.GET,value = "/customer/{email}")
+    public Optional<Customer> getCustomerById(@PathVariable String email){
+        Optional<Customer> customer = customerService.getCustomerById(email);
+            return customerService.getCustomerById(email);
     }
+
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/customer/{email}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable String email, @RequestBody  CustomerRequest customerRequest){
+        Customer customer = customerService.updateCustomer(email, customerRequest);
+        return ResponseEntity.ok(customer);
+    }
+
+
+    @DeleteMapping(value ="/customer/{email}" )
+    public ResponseEntity<String> deleteCustomer(@PathVariable String email){
+        customerService.deleteCustomer(email);
+
+        return ResponseEntity.ok("customer deleted");
+    }
+
 
 
 

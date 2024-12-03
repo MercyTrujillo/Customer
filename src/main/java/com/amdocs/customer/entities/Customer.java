@@ -11,17 +11,17 @@ import java.time.LocalDate;
 @Table(name="customer")
 @EntityListeners(AuditingEntityListener.class)
 public class Customer {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //autoincrement ID]
-    @Column(name = "customerId")
-    private int customerID;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY) //autoincrement ID]
+//    @Column(name = "customerId")
+//    private int customerID;
 
     private String name;
 
     private String lastName;
 
-    private String address;
+//    private String address;
+    @Id
+    private String email;
 
     @CreatedDate
     @Column(name = "creationDate")
@@ -34,29 +34,26 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "customerID=" + customerID +
+
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
+             //", address='" + address + '\'' +
+                ", email='" + email + '\'' +
                 ", creationDate=" + creationDate +
                 '}';
     }
 
-    public Customer(int customerID, String name, String lastName, String address, LocalDate creationDate) {
-        this.customerID = customerID;
+    public Customer(String name, String lastName,String email, LocalDate creationDate) {
+
         this.name = name;
         this.lastName = lastName;
-        this.address = address;
+       //this.address = address;
+        this.email = email;
         this.creationDate = creationDate;
     }
 
-    public int getCustomerID() {
-        return customerID;
-    }
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
-    }
+
 
     public String getName() {
         return name;
@@ -74,12 +71,21 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public String getAddress() {
-        return address;
+//    public String getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(String address) {
+//        this.address = address;
+//    }
+
+
+    public String getEmail() {
+        return email;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public LocalDate getCreationDate() {
